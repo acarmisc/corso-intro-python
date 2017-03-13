@@ -33,5 +33,20 @@ def saluta():
 	name = request.form['name']
 	return render_template('saluta.html', name=name)
 
+@app.route('/nuovaauto')
+def nuovaauto():
+	return render_template('nuovaauto.html')
+
+@app.route('/salvaauto', methods=['POST'])
+def salvaauto():
+	nome = request.form['name']
+	anno = request.form['year']
+	marca = request.form['brand']
+	consumo = request.form['consumption']
+
+	auto = Automobile(nome, anno, marca, consumo) 
+	
+	return render_template('salvaauto.html', name=auto.nome)	
+
 app.run()
 
