@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template, request
 from oggetti import Automobile
 
 
@@ -8,10 +8,11 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
-
+"""
 @app.route('/saluta/<nome>')
 def saluta(nome):
 	return 'Ciao %s' % nome
+"""
 
 @app.route('/somma/<int:a>/<int:b>')
 def somma(a, b):
@@ -23,4 +24,14 @@ def crea_automobile(nome, anno, marca, consumo):
 	auto = Automobile(nome, anno, marca, consumo) 
 	return auto.nome
 
+@app.route('/welcome')
+def welcome():
+	return render_template('welcome.html')
+
+@app.route('/saluta', methods=['POST', 'GET'])
+def saluta():
+	name = request.form['name']
+	return render_template('saluta.html', name=name)
+
 app.run()
+
