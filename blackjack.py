@@ -33,11 +33,20 @@ class Blackjack:
 		sum = self.sum_cards(clist)
 		return 21 - sum
 
+    def delta_win(self, total):
+        return 21 - total
+
+    def get_winner(self, player1, player2):
+        if self.delta_win(player1) > self.delta_win(player2):
+            return 2
+
+        return 1
+
 	def ask_next(self, clist, courage=1):
 		# courage: 1,2,3 increasing
 		delta = self.delta_cards(clist)
 		print delta		
-		# TODO: sistemare condizione
+
 		if courage == 1 and delta < 6:
 			return False
 		if courage == 2 and delta < 4:
@@ -71,5 +80,12 @@ if __name__ == '__main__':
 		if not b.ask_next(ccounter_cards, courage=randint(1,4)) or b.sum_cards(ccounter_cards) >= 21: 
 			again_ccounter = False
 
-	print "Il banco ha ottenuto %s" % b.sum_cards(ccounter_cards) 
+    ccounter_sum = b.sum_cards(ccounter_cards) 
+	print "Il banco ha ottenuto %s" % ccounter_sum
+
+    if user_sum <= 21:
+        winner = b.get_winner(user_sum, ccounter_sum)
+        print "Vince %s (1: giocatore, 2: banco)" % winner 
+    else:
+        print "Avrebbe comunque vinto il banco!"
 
