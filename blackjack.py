@@ -68,7 +68,7 @@ if __name__ == '__main__':
 		c = b.pop_card()
 		print "Il banco ha tirato su %s" % str(c)
 		ccounter_cards.append(c)	
-		if b.ask_next(ccounter_cards, courage=randint(1,4)) or b.sum_cards(ccounter_cards) >= 21: 
+		if not b.ask_next(ccounter_cards, courage=randint(1,4)) or b.sum_cards(ccounter_cards) >= 21: 
 			again_ccounter = False
 
 	print "Il banco ha ottenuto %s" % b.sum_cards(ccounter_cards) 
